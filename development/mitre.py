@@ -9,6 +9,7 @@ headers = {
 
 mitreData = requests.get(url, headers=headers).json()
 mitreMapped = {}
+failure = 0
 
 for object in mitreData['objects']:
 	tactics = []
@@ -75,6 +76,7 @@ for file in alert_data:
 		#Check to ensure MITRE Tactics exist
 		if tactic not in mitre_tactic_list:
 			print("The MITRE Tactic supplied does not exist. \nTactic:", tactic, "\nFile:", file,'\n\n')
+			failure = 1
 		
 		#Check to make sure the Mitre TID is valid
 		try:
@@ -82,6 +84,7 @@ for file in alert_data:
 				pass
 		except KeyError:
 			print('Invalid MITRE Technique ID. \nTechnique ID:', technique_id, '\nFile:',file,'\n\n')
+			failure = 1
 		
 		#Check to see if MITRE TID + Name combination is valid
 		try:
@@ -89,6 +92,7 @@ for file in alert_data:
 			alert_name = line['technique_name']
 			if alert_name != mitre_name:
 				print('MITRE Technique ID and Name mismatch. \nFile:', file, '\nExpected: ', mitre_name.upper(), 'but given', alert_name.upper(),'\n\n')
+				failure = 1
 		except KeyError:
 			pass
 		
@@ -99,6 +103,7 @@ for file in alert_data:
 				alert_name = line['subtechnique_name']
 				if alert_name != mitre_name:
 					print('MITRE Sub-Technique ID and Name mismatch. \nFile:', file, '\nExpected: ', mitre_name.upper(), 'but given', alert_name.upper(),'\n\n')
+					failure = 1
 		except KeyError:
 			pass
 		
@@ -106,6 +111,9 @@ for file in alert_data:
 		try:
 			if mitreMapped[technique_id]['deprecated'] == True:
 				print('Deprecated MITRE Technique ID.', '\nTechnique ID:',technique_id, '\nFile:',file)
+				failure = 1
 		except KeyError:
 			pass
 
+if failure != 0:
+	sys.exit(1)
