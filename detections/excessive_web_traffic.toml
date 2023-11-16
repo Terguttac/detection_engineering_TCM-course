@@ -3,7 +3,6 @@ author = ["StinkyGuts"]
 description = "Triggers when more than 1000 queries to a webserver have been observed within 5 minutes."
 from = "now-6m" # This is the default value. Change as needed.
 name = "Excessive Web Traffic"
-risk_score = 25
 severity = "low"
 rule_id = "00000000-0000-0000-000000000005"
 type = "threshold"
