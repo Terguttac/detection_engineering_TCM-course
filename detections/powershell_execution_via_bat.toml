@@ -3,8 +3,8 @@ author = ["StinkyGuts"]
 description = "Sysmon_operational logs indicate powershell execution originating from a bat file."
 from = "now-6m" # This is the default value. Change as needed.
 name = "Powershell execution via a bat file"
-risk_score = 21
-severity = "low"
+risk_score = 55
+severity = "medium"
 rule_id = "00000000-0000-0000-000000000007"
 type = "query"
 
