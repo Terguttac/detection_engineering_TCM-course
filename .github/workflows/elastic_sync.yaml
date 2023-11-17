@@ -6,10 +6,11 @@ on:
       - main
     path:
       - '**.toml'
+      - 'detections\**'
   workflow_dispatch:
 
 jobs:
-  elastic-detections-all:
+  elastic-detections-update:
     runs-on: ubuntu-latest
     env: 
       ELASTIC_KEY: ${{secrets.ELASTIC_KEY}}
