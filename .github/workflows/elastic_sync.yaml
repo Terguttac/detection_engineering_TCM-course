@@ -1,4 +1,4 @@
-name: All Detections To Elastic
+name: Sync Rules To Elastic
 
 on:
   push:
